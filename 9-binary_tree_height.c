@@ -1,19 +1,25 @@
 #include "binary_trees.h"
+#include <sys/param.h>
 
 /**
- *  - goes through a binary tree using in-order traversal
+ * binary_tree_height - measures the height of a binary tree
  * @tree: pointer to the root node of the tree to traverse
- * @func: pointer to a function to call for each node.
- * Return: Void
+ * Return: Height of the tree
  */
 
-void binary_tree_inorder(const binary_tree_t *tree, void (*func)(int))
+size_t binary_tree_height(const binary_tree_t *tree)
 {
-	if (tree == NULL || func == NULL)
-		return;
+	size_t left_height = 0, right_height = 0, max_height = 0;
 
-	binary_tree_inorder(tree->left, func);
-	func(tree->n);
-	binary_tree_inorder(tree->right, func);
+	if (tree == NULL)
+                return (0);
+	if (tree->left != NULL)
+	{
+		left_height = binary_tree_height(tree->left) + 1;
+	}
+	if (tree->right != NULL)
+		right_height = binary_tree_height(tree->right) + 1;
+	max_height = MAX(left_height, right_height);
+	return max_height;
 
 }
